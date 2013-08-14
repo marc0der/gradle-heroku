@@ -9,5 +9,6 @@ class HerokuPlugin implements Plugin<Project> {
     void apply(Project project){
         project.extensions.create("heroku", HerokuConfig)
         project.task('heroku', type: HerokuBuildpackTask)
+        project.task('herokuCreateApp', type: HerokuCreateAppTask)
     }
 }
