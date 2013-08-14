@@ -16,12 +16,14 @@ class HerokuCreateAppTask extends DefaultTask {
 
         def app
         if(appName){
+            logger.quiet "\nUsing name $appName to create Cedar Stack."
             app = api.createApp(new App().on(Heroku.Stack.Cedar).named(appName));
         } else {
+            logger.quiet "\nUsing Heroku suggested name to create Cedar Stack."
             app = api.createApp(new App().on(Heroku.Stack.Cedar))
         }
 
-        logger.info "Created application: ${app.name}"
+        logger.quiet "\nApplication created!"
     }
 
 }

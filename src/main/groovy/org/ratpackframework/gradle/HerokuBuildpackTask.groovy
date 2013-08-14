@@ -10,10 +10,12 @@ class HerokuBuildpackTask extends DefaultTask {
     void action(){
         def target = "${project.buildDir}/download"
 
-        project.logger.info "Downloading buildpack from: ${project.heroku.buildpack} to: ${target}"
+        logger.quiet "\nDownloading buildpack from: ${project.heroku.buildpack} to: ${target}"
+
         def zipFile = downloadTo(target)
 
-        project.logger.info "Copy exploded files into: ${project.projectDir}"
+        logger.quiet "\nCopy exploded files into: ${project.projectDir}"
+
         project.copy {
             from project.zipTree(zipFile)
             into project.projectDir

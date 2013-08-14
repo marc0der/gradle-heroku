@@ -22,9 +22,9 @@ class HerokuDestroyAppTask extends DefaultTask {
             throw new GradleException("No appName specified.")
         }
 
-        logger.info "Destroying application: $appName"
+        logger.quiet "\nDestroying application: $appName"
         api.destroyApp(appName)
-        logger.info "Application destroyed: $appName"
+        logger.quiet "\nApplication destroyed!"
     }
 
 }
