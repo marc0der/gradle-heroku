@@ -20,7 +20,8 @@ class HerokuCreateAppTask extends DefaultTask {
         } else {
             app = api.createApp(new App().on(Heroku.Stack.Cedar))
         }
-        logger.info ("Created application: ${app.name}")
+
+        logger.info "Created application: ${app.name}"
     }
 
 }
