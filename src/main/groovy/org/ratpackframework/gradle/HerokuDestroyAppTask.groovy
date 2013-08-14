@@ -5,11 +5,6 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
 import org.gradle.api.tasks.TaskAction
 
-/**
- * User: marco
- * Date: 14/08/13
- * Time: 21:21
- */
 class HerokuDestroyAppTask extends DefaultTask {
 
     @TaskAction
