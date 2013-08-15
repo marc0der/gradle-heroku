@@ -4,10 +4,10 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
 import org.gradle.api.tasks.TaskAction
 
-class HerokuBuildpackTask extends DefaultTask {
+class HerokuBuildpack extends DefaultTask {
 
     @TaskAction
-    void action(){
+    void install(){
         def target = "${project.buildDir}/download"
 
         logger.quiet "\nDownloading buildpack from: ${project.heroku.buildpack} to: ${target}"
