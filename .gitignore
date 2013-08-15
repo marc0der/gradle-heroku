@@ -1,4 +1,6 @@
 .gradle
+.gradletasknamecache
 .idea
 build
 gradle-heroku.iml
+out
