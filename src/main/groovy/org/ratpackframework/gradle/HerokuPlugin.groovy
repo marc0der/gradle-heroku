@@ -8,7 +8,7 @@ class HerokuPlugin implements Plugin<Project> {
     @Override
     void apply(Project project){
         project.extensions.create("heroku", HerokuConfig)
-        project.task('heroku', type: HerokuBuildpack)
+        project.task('herokuBuildpack', type: HerokuBuildpack)
         project.task('herokuCreateApp', type: HerokuCreateApp)
         project.task('herokuDestroyApp', type: HerokuDestroyApp)
     }
