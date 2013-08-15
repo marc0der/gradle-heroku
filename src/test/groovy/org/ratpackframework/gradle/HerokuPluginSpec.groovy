@@ -18,7 +18,17 @@ class HerokuPluginSpec extends Specification {
     }
 
     void "should initialise the heroku config"() {
-        expect:
+        given:
+        def buildpack = 'http://www.example.org/buildpack'
+        def appName = 'fast-everglades-6675'
+        def apiKey = 'f19d6641b2891287e1a8a429aa51d8baa1415ac2'
+
+        when:
+        project.heroku.buildpack = buildpack
+        project.heroku.appName = appName
+        project.heroku.apiKey = apiKey
+
+        then:
         project.heroku instanceof HerokuConfig
         project.heroku.buildpack
         project.heroku.appName
