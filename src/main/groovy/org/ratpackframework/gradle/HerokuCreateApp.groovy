@@ -7,7 +7,7 @@ import com.heroku.api.HerokuAPI
 class HerokuCreateApp extends HerokuApp {
 
     @Override
-    void executeOnApp(HerokuAPI herokuAPI, String appName){
+    void executeOnApp(String appName){
 
         def app
         if(appName){

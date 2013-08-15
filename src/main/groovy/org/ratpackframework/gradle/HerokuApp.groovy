@@ -16,11 +16,12 @@ abstract class HerokuApp extends DefaultTask {
     @TaskAction
     void start(){
         def apiKey = "${project.heroku.apiKey}"
-        def appName = "${project.heroku.appName}"
         herokuAPI = new HerokuAPI(apiKey)
-        executeOnApp(herokuAPI, appName)
+
+        def appName = "${project.heroku.appName}"
+        executeOnApp(appName)
     }
 
-    abstract void executeOnApp(HerokuAPI herokuAPI, String appName)
+    abstract void executeOnApp(String appName)
 
 }
