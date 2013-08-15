@@ -1,6 +1,5 @@
 package org.ratpackframework.gradle
 
-import com.heroku.api.HerokuAPI
 import org.gradle.api.GradleException
 
 class HerokuDestroyApp extends HerokuApp {
