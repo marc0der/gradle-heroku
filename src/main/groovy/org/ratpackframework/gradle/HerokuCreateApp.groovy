@@ -18,7 +18,7 @@ class HerokuCreateApp extends HerokuApp {
             app = herokuAPI.createApp(new App().on(Heroku.Stack.Cedar))
         }
 
-        logger.quiet "\nApplication $app created!"
+        logger.quiet "\nApplication $app.name created!"
     }
 
 }
