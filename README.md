@@ -31,6 +31,9 @@ After doing so, we can now invoke the following tasks:
     # destroy the named app on heroku
     $ gradle herokuDestroyApp
 
+    # get app info of the app on heroku
+    $ gradle herokuAppInfo
+
 
 More features will be added soon...
 
