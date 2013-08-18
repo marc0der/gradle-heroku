@@ -19,7 +19,7 @@ dependencies {
 
 group = 'org.gradle.plugins'
 archivesBaseName = 'gradle-heroku-plugin'
-version = System.getProperty('buildNumber') ? System.getProperty('buildNumber') : '0.9'
+version = '0.9'
 
 apply plugin: 'distribution'
 
