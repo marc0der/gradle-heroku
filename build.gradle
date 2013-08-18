@@ -35,7 +35,7 @@ distributions {
 ext {
     bintrayBaseUrl = 'https://api.bintray.com/maven'
     bintrayUsername = 'vermeulen-mp'
-    bintrayRepository = 'gradle'
+    bintrayRepository = 'gradle-plugins'
     bintrayPackage = 'gradle-heroku-plugin'
 }
 
