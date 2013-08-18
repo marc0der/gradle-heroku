@@ -72,8 +72,8 @@ publishing {
             url "$bintrayBaseUrl/$bintrayUsername/$bintrayRepository/$bintrayPackage"
 
             credentials {
-                username = "$bintray_username"
-                password = "$bintray_api_key"
+                username = System.getenv('BINTRAY_USERNAME') ?: 'invalid_user'
+                password = System.getenv('BINTRAY_API_KEY') ?: 'invalid_key'
             }
         }
     }
