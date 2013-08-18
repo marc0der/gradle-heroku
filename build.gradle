@@ -17,4 +17,64 @@ dependencies {
     testCompile 'org.spockframework:spock-core:0.6-groovy-1.8'
 }
 
-version = System.getProperty('buildNumber') ? System.getProperty('buildNumber') : '1.0.0-SNAPSHOT'
+group = 'org.gradle.plugins'
+archivesBaseName = 'gradle-heroku-plugin'
+version = System.getProperty('buildNumber') ? System.getProperty('buildNumber') : '0.9'
+
+apply plugin: 'distribution'
+
+distributions {
+    main {
+        baseName = archivesBaseName
+        contents {
+            from { libsDir }
+        }
+    }
+}
+
+ext {
+    bintrayBaseUrl = 'https://api.bintray.com/maven'
+    bintrayUsername = 'vermeulen-mp'
+    bintrayRepository = 'gradle'
+    bintrayPackage = 'gradle-heroku-plugin'
+}
+
+apply plugin: 'maven-publish'
+
+publishing {
+    publications {
+        plugin(MavenPublication) {
+            from components.java
+
+            pom.withXml {
+                def root = asNode()
+                root.appendNode('name', 'Gradle Heroku plugin')
+                root.appendNode('description', 'Gradle plugin for managing applications and databases on Heroku PaaS.')
+                root.appendNode('inceptionYear', '2013')
+
+                def license = root.appendNode('licenses').appendNode('license')
+                license.appendNode('name', 'The Apache Software License, Version 2.0')
+                license.appendNode('url', 'http://www.apache.org/licenses/LICENSE-2.0.txt')
+                license.appendNode('distribution', 'repo')
+
+                def developer = root.appendNode('developers').appendNode('developer')
+                developer.appendNode('id', 'vermeulen.mp')
+                developer.appendNode('name', 'Marco Vermeulen')
+                developer.appendNode('email', 'vermeulen.mp@gmail.com')
+            }
+
+        }
+    }
+
+    repositories {
+        maven {
+            name 'Bintray'
+            url "$bintrayBaseUrl/$bintrayUsername/$bintrayRepository/$bintrayPackage"
+
+            credentials {
+                username = "$bintray_username"
+                password = "$bintray_api_key"
+            }
+        }
+    }
+}
