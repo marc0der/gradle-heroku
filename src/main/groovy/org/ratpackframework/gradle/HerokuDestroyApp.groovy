@@ -4,6 +4,10 @@ import org.gradle.api.GradleException
 
 class HerokuDestroyApp extends HerokuApp {
 
+    HerokuDestroyApp(){
+        super('Destroy the application on Heroku.')
+    }
+
     @Override
     void executeOnApp(String appName){
         if(!appName) throw new GradleException("No appName specified.")

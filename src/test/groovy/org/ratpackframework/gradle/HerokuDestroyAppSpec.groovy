@@ -23,6 +23,11 @@ class HerokuDestroyAppSpec extends Specification {
         task.herokuAPI = herokuAPI
     }
 
+    void "should declare a valid description"(){
+        expect:
+        task.description == 'Destroy the application on Heroku.'
+    }
+
     void "should destroy an application on name provided"() {
         given:
         def appName = "fast-everglades-6675"
