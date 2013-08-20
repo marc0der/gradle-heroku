@@ -24,6 +24,11 @@ class HerokuCreateAppSpec extends Specification {
         task.herokuAPI = herokuAPI
     }
 
+    void "should declare a valid description"(){
+        expect:
+        task.description == 'Creates a new application on Heroku.'
+    }
+
     void "should create an unnamed app when name is not provided"() {
         given:
         def cedar = Heroku.Stack.Cedar

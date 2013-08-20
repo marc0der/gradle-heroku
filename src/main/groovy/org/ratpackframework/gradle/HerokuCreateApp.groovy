@@ -6,6 +6,10 @@ import com.heroku.api.HerokuAPI
 
 class HerokuCreateApp extends HerokuApp {
 
+    HerokuCreateApp(){
+        super('Creates a new application on Heroku.')
+    }
+
     @Override
     void executeOnApp(String appName){
 
