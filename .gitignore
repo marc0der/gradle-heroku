@@ -2,5 +2,5 @@
 .gradletasknamecache
 .idea
 build
-gradle-heroku.iml
+gradle-heroku-plugin.iml
 out
