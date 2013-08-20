@@ -18,6 +18,11 @@ class HerokuBuildpackSpec extends Specification {
         buildPack = project.tasks.findByName(BUILD_PACK_TASK_NAME)
     }
 
+    void "should display a valid description"(){
+        expect:
+        buildPack.description == 'Downloads and explodes the specified buildpack to this project.'
+    }
+
     void "should download binary to given location"(){
         given:
         project.heroku.buildpack = new File("src/test/resources/buildpack.zip").toURI().toString()

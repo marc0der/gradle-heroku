@@ -6,6 +6,10 @@ import org.gradle.api.tasks.TaskAction
 
 class HerokuBuildpack extends DefaultTask {
 
+    HerokuBuildpack(){
+        description = 'Downloads and explodes the specified buildpack to this project.'
+    }
+
     @TaskAction
     void install(){
         def target = "${project.buildDir}/download"
