@@ -30,6 +30,11 @@ class HerokuAppInfoSpec extends Specification {
         task
     }
 
+    void "should declare a valid description"(){
+        expect:
+        task.description == 'Displays comprehensive information about the named application.'
+    }
+
     void "should retrieve the application from the heroku api"() {
         when:
         task.executeOnApp(APP_NAME)

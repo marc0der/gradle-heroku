@@ -2,6 +2,10 @@ package org.ratpackframework.gradle
 
 class HerokuAppInfo extends HerokuApp {
 
+    HerokuAppInfo() {
+        super('Displays comprehensive information about the named application.')
+    }
+
     @Override
     void executeOnApp(String appName) {
         def app = herokuAPI.getApp(appName)

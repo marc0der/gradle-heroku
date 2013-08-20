@@ -8,6 +8,12 @@ abstract class HerokuApp extends DefaultTask {
 
     HerokuAPI herokuAPI
 
+    HerokuApp(){}
+
+    HerokuApp(String description){
+        this.description = description
+    }
+
     @TaskAction
     void start(){
         prepareAPI()
