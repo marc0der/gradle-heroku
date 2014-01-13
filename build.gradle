@@ -9,9 +9,9 @@ dependencies {
     compile 'org.codehaus.groovy:groovy:1.8.9'
     compile gradleApi()
 
-    compile 'com.heroku.api:heroku-api:0.14'
-    compile 'com.heroku.api:heroku-json-jackson:0.14'
-    compile 'com.heroku.api:heroku-http-apache:0.14'
+    compile 'com.heroku.api:heroku-api:0.15'
+    compile 'com.heroku.api:heroku-json-jackson:0.15'
+    compile 'com.heroku.api:heroku-http-apache:0.15'
 
     testCompile 'cglib:cglib-nodep:2.2.2'
     testCompile 'org.spockframework:spock-core:0.6-groovy-1.8'
