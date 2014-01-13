@@ -6,7 +6,7 @@ repositories {
 }
 
 dependencies {
-    groovy group: 'org.codehaus.groovy', name: 'groovy', version: '1.8.9'
+    compile 'org.codehaus.groovy:groovy:1.8.9'
     compile gradleApi()
 
     compile 'com.heroku.api:heroku-api:0.14'
@@ -77,8 +77,4 @@ publishing {
             }
         }
     }
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '1.7'
 }
