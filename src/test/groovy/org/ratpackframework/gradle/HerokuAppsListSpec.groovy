@@ -5,7 +5,7 @@ import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import spock.lang.Specification
 
-class HerokuAppsListSpec extends Specification{
+class HerokuAppsListSpec extends Specification {
 
     final APP_LIST_TASK_NAME = 'herokuAppList'
 
@@ -20,9 +20,15 @@ class HerokuAppsListSpec extends Specification{
         task.herokuAPI = herokuAPI
     }
 
-    void "should add the app list task to the project"(){
+    void "should add the app list task to the project"() {
         expect:
         task
     }
+
+    void "should declare a valid description"() {
+        expect:
+        task.description == "Lists all Apps available for the current user on Heroku."
+    }
+
 
 }
