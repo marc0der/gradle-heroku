@@ -1,14 +1,14 @@
 package org.ratpackframework.gradle
 
-class HerokuAppInfo extends HerokuApp {
+class HerokuAppInfoTask extends HerokuTask {
 
-    HerokuAppInfo() {
+    HerokuAppInfoTask() {
         super('Displays comprehensive information about the named application.')
     }
 
     @Override
-    void executeOnApp(String appName) {
-        def app = herokuAPI.getApp(appName)
+    void execute(params) {
+        def app = herokuAPI.getApp(params.appName)
         logger.quiet "================================================================================"
         logger.quiet "Application Info:"
         logger.quiet "================================================================================"

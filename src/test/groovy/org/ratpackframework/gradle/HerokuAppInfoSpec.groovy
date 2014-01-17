@@ -13,9 +13,10 @@ class HerokuAppInfoSpec extends Specification {
     final APP_NAME = "fast-everglades-6675"
 
     Project project
-    HerokuAppInfo task
+    HerokuAppInfoTask task
     def herokuAPI = Mock(HerokuAPI)
     def app = Mock(App)
+    def command = [appName: APP_NAME]
 
     void setup(){
         project = ProjectBuilder.builder().build()
@@ -37,7 +38,7 @@ class HerokuAppInfoSpec extends Specification {
 
     void "should retrieve the application from the heroku api"() {
         when:
-        task.executeOnApp(APP_NAME)
+        task.execute(command)
 
         then:
         1 * herokuAPI.getApp(APP_NAME) >> app
@@ -45,7 +46,7 @@ class HerokuAppInfoSpec extends Specification {
 
     void "should get the app name from heroku"() {
         when:
-        task.executeOnApp(APP_NAME)
+        task.execute(command)
 
         then:
         herokuAPI.getApp(APP_NAME) >> app
@@ -54,7 +55,7 @@ class HerokuAppInfoSpec extends Specification {
 
     void "should get the app domain from heroku"() {
         when:
-        task.executeOnApp(APP_NAME)
+        task.execute(command)
 
         then:
         herokuAPI.getApp(APP_NAME) >> app
@@ -63,7 +64,7 @@ class HerokuAppInfoSpec extends Specification {
 
     void "should get the app stack from heroku"() {
         when:
-        task.executeOnApp(APP_NAME)
+        task.execute(command)
 
         then:
         herokuAPI.getApp(APP_NAME) >> app
@@ -72,7 +73,7 @@ class HerokuAppInfoSpec extends Specification {
 
     void "should get the requested app stack from heroku"() {
         when:
-        task.executeOnApp(APP_NAME)
+        task.execute(command)
 
         then:
         herokuAPI.getApp(APP_NAME) >> app
@@ -81,7 +82,7 @@ class HerokuAppInfoSpec extends Specification {
 
     void "should get the created at date from heroku"() {
         when:
-        task.executeOnApp(APP_NAME)
+        task.execute(command)
 
         then:
         herokuAPI.getApp(APP_NAME) >> app
@@ -90,7 +91,7 @@ class HerokuAppInfoSpec extends Specification {
 
     void "should get the create status from heroku"() {
         when:
-        task.executeOnApp(APP_NAME)
+        task.execute(command)
 
         then:
         herokuAPI.getApp(APP_NAME) >> app
@@ -99,7 +100,7 @@ class HerokuAppInfoSpec extends Specification {
 
     void "should get the released at date from heroku"() {
         when:
-        task.executeOnApp(APP_NAME)
+        task.execute(command)
 
         then:
         herokuAPI.getApp(APP_NAME) >> app
@@ -108,7 +109,7 @@ class HerokuAppInfoSpec extends Specification {
 
     void "should get the buildpack description from heroku"() {
         when:
-        task.executeOnApp(APP_NAME)
+        task.execute(command)
 
         then:
         herokuAPI.getApp(APP_NAME) >> app
@@ -117,7 +118,7 @@ class HerokuAppInfoSpec extends Specification {
 
     void "should get the git repo url from heroku"() {
         when:
-        task.executeOnApp(APP_NAME)
+        task.execute(command)
 
         then:
         herokuAPI.getApp(APP_NAME) >> app
@@ -126,7 +127,7 @@ class HerokuAppInfoSpec extends Specification {
 
     void "should get the repo migration status from heroku"() {
         when:
-        task.executeOnApp(APP_NAME)
+        task.execute(command)
 
         then:
         herokuAPI.getApp(APP_NAME) >> app
@@ -135,7 +136,7 @@ class HerokuAppInfoSpec extends Specification {
 
     void "should get the web url from heroku"() {
         when:
-        task.executeOnApp(APP_NAME)
+        task.execute(command)
 
         then:
         herokuAPI.getApp(APP_NAME) >> app
@@ -144,7 +145,7 @@ class HerokuAppInfoSpec extends Specification {
 
     void "should get the owner email from heroku"() {
         when:
-        task.executeOnApp(APP_NAME)
+        task.execute(command)
 
         then:
         herokuAPI.getApp(APP_NAME) >> app
@@ -153,7 +154,7 @@ class HerokuAppInfoSpec extends Specification {
 
     void "should get the number of dynos from heroku"() {
         when:
-        task.executeOnApp(APP_NAME)
+        task.execute(command)
 
         then:
         herokuAPI.getApp(APP_NAME) >> app
@@ -162,7 +163,7 @@ class HerokuAppInfoSpec extends Specification {
 
     void "should get the number of workers from heroku"() {
         when:
-        task.executeOnApp(APP_NAME)
+        task.execute(command)
 
         then:
         herokuAPI.getApp(APP_NAME) >> app
@@ -171,7 +172,7 @@ class HerokuAppInfoSpec extends Specification {
 
     void "should get the slug size from heroku"() {
         when:
-        task.executeOnApp(APP_NAME)
+        task.execute(command)
 
         then:
         herokuAPI.getApp(APP_NAME) >> app
@@ -180,7 +181,7 @@ class HerokuAppInfoSpec extends Specification {
 
     void "should get the repo size from heroku"() {
         when:
-        task.executeOnApp(APP_NAME)
+        task.execute(command)
 
         then:
         herokuAPI.getApp(APP_NAME) >> app
@@ -188,11 +189,3 @@ class HerokuAppInfoSpec extends Specification {
     }
 
 }
-
-
-//
-//
-//
-//
-//        1 * app.getSlugSize() >> 10000
-//        1 * app.getRepoSize() >> 12000

@@ -10,7 +10,7 @@ class HerokuBuildpackSpec extends Specification {
     final BUILD_PACK_TASK_NAME = 'herokuBuildpack'
 
     Project project
-    HerokuBuildpack buildPack
+    HerokuBuildpackTask buildPack
 
     void setup(){
         project = ProjectBuilder.builder().build()

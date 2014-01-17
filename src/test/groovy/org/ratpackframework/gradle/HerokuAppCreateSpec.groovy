@@ -7,12 +7,12 @@ import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import spock.lang.Specification
 
-class HerokuCreateAppSpec extends Specification {
+class HerokuAppCreateSpec extends Specification {
 
     final CREATE_APP_TASK_NAME = 'herokuCreateApp'
 
     Project project
-    HerokuCreateApp task
+    HerokuAppCreateTask task
 
     def herokuAPI = Mock(HerokuAPI)
 
@@ -35,7 +35,7 @@ class HerokuCreateAppSpec extends Specification {
         def app = new App().on(cedar)
 
         when:
-        task.executeOnApp('')
+        task.execute([:])
 
         then:
         1 * herokuAPI.createApp(_) >> app
@@ -50,7 +50,7 @@ class HerokuCreateAppSpec extends Specification {
         def app = new App().named(appName).on(cedar)
 
         when:
-        task.executeOnApp(appName)
+        task.execute([appName: appName])
 
         then:
         1 * herokuAPI.createApp(_) >> app

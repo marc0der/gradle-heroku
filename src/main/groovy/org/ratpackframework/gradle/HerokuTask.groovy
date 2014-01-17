@@ -4,13 +4,13 @@ import com.heroku.api.HerokuAPI
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
-abstract class HerokuApp extends DefaultTask {
+abstract class HerokuTask extends DefaultTask {
 
     HerokuAPI herokuAPI
 
-    HerokuApp(){}
+    HerokuTask(){}
 
-    HerokuApp(String description){
+    HerokuTask(String description){
         this.description = description
     }
 
@@ -18,7 +18,7 @@ abstract class HerokuApp extends DefaultTask {
     void start(){
         prepareAPI()
         def appName = "${project.heroku.appName}"
-        executeOnApp(appName)
+        execute([app:appName])
     }
 
     private void prepareAPI() {
@@ -26,6 +26,6 @@ abstract class HerokuApp extends DefaultTask {
         herokuAPI = new HerokuAPI(apiKey)
     }
 
-    abstract void executeOnApp(String appName)
+    abstract void execute(params)
 
 }

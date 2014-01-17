@@ -6,12 +6,12 @@ import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import spock.lang.Specification
 
-class HerokuDestroyAppSpec extends Specification {
+class HerokuAppDestroySpec extends Specification {
 
     final DESTROY_APP_TASK_NAME = 'herokuDestroyApp'
 
     Project project
-    HerokuDestroyApp task
+    HerokuAppDestroyTask task
 
     def herokuAPI = Mock(HerokuAPI)
 
@@ -33,7 +33,7 @@ class HerokuDestroyAppSpec extends Specification {
         def appName = "fast-everglades-6675"
 
         when:
-        task.executeOnApp(appName)
+        task.execute([appName: appName])
 
         then:
         1 * herokuAPI.destroyApp(appName)
@@ -41,7 +41,7 @@ class HerokuDestroyAppSpec extends Specification {
 
     void "should not destroy an application on no name provided"() {
         when:
-        task.executeOnApp('')
+        task.execute([:])
 
         then:
         herokuAPI.destroyApp(_) >> { new GradleException('kapow!') }
