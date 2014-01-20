@@ -17,7 +17,7 @@ dependencies {
     testCompile 'org.spockframework:spock-core:0.6-groovy-1.8'
 }
 
-group = 'org.gradle.plugins'
+group = 'org.gradle.api.plugins'
 archivesBaseName = 'gradle-heroku-plugin'
 version = '0.9.1'
 
