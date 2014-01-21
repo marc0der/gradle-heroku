@@ -42,7 +42,7 @@ class HerokuPluginSpec extends Specification {
 
     void "should initialise the heroku create app task"() {
         expect:
-        project.tasks.findByName 'herokuCreateApp'
+        project.tasks.findByName 'herokuAppCreate'
     }
 
     void "should initialise the heroku destroy app task"() {

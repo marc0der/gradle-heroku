@@ -9,7 +9,7 @@ import spock.lang.Specification
 
 class HerokuAppCreateSpec extends Specification {
 
-    final CREATE_APP_TASK_NAME = 'herokuCreateApp'
+    final CREATE_APP_TASK_NAME = 'herokuAppCreate'
 
     Project project
     HerokuAppCreateTask task
