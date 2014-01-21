@@ -33,7 +33,7 @@ class HerokuAppDestroySpec extends Specification {
         def appName = "fast-everglades-6675"
 
         when:
-        task.execute([appName: appName])
+        task.execute([app: appName])
 
         then:
         1 * herokuAPI.destroyApp(appName)
