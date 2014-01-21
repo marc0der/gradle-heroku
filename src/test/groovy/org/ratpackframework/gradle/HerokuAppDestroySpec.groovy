@@ -8,7 +8,7 @@ import spock.lang.Specification
 
 class HerokuAppDestroySpec extends Specification {
 
-    final DESTROY_APP_TASK_NAME = 'herokuDestroyApp'
+    final DESTROY_APP_TASK_NAME = 'herokuAppDestroy'
 
     Project project
     HerokuAppDestroyTask task
