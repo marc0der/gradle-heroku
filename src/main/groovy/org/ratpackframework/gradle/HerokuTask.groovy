@@ -1,5 +1,4 @@
 package org.ratpackframework.gradle
-
 import com.heroku.api.HerokuAPI
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
@@ -17,8 +16,8 @@ abstract class HerokuTask extends DefaultTask {
     @TaskAction
     void start(){
         prepareAPI()
-        def appName = "${project.heroku.appName}"
-        execute([app:appName])
+        def appName = "${project.heroku.appName}" ?: "${project.name}"
+        execute([appName:appName])
     }
 
     private void prepareAPI() {

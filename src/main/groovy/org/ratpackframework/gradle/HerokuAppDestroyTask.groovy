@@ -10,7 +10,7 @@ class HerokuAppDestroyTask extends HerokuTask {
 
     @Override
     void execute(params){
-        def name = params.app
+        def name = params.appName
         if(!name) throw new GradleException("No appName specified.")
 
         logger.quiet "\nDestroying application: $name"
