@@ -20,6 +20,12 @@ class HerokuAppCreateTask extends HerokuTask {
         } else {
             logger.quiet "\nUsing Heroku suggested name to create Cedar Stack."
             app = herokuAPI.createApp(new App().on(Heroku.Stack.Cedar))
+            logger.quiet "\nPlease add the following appName line to the heroku block in build.gradle:\n\n"
+            logger.quiet "  heroku {"
+            logger.quiet "      ..."
+            logger.quiet "      appName = '${app.name}'"
+            logger.quiet "      ..."
+            logger.quiet "  }"
         }
 
         logger.quiet "\nApplication $app.name created!"

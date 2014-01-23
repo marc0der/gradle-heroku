@@ -34,7 +34,7 @@ class HerokuAppCreateSpec extends Specification {
         task.description == 'Creates a new application on Heroku.'
     }
 
-    void "should create an unnamed app when name is not provided"() {
+    void "should create an app with heroku generated name when name is not provided"() {
         given:
         def cedar = Heroku.Stack.Cedar
         def app = new App().on(cedar)
