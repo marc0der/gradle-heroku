@@ -8,6 +8,7 @@ class HerokuAppInfoTask extends HerokuTask {
 
     @Override
     void execute(params) {
+        logger.quiet"Getting application ${params.appName}..."
         def app = herokuAPI.getApp(params.appName)
         logger.quiet "================================================================================"
         logger.quiet "Application Info:"
