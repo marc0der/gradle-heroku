@@ -63,4 +63,37 @@ class HerokuAppCreateSpec extends Specification {
         app.stack == cedar
     }
 
+    void "should set buildpack configuration if present when creating new app"() {
+        given:
+        def appName = "fast-everglades-6675"
+        def buildpack = "http://dl.bintray.com/vermeulen-mp/buildpacks/heroku-buildpack-gradlew.zip"
+        def cedar = Heroku.Stack.Cedar
+        def app = new App().named(appName).on(cedar)
+
+        when:
+        task.execute([appName: appName, buildpack: buildpack])
+
+        then:
+        herokuAPI.createApp(_) >> app
+
+        and:
+        1 * herokuAPI.addConfig(appName, { it.BUILDPACK_URL == buildpack })
+    }
+
+    void "should not set buildpack on absence of configuration when creating a new app"() {
+        given:
+        def appName = "fast-everglades-6675"
+        def cedar = Heroku.Stack.Cedar
+        def app = new App().named(appName).on(cedar)
+
+        when:
+        task.execute([appName: appName, buildpack: null])
+
+        then:
+        herokuAPI.createApp(_) >> app
+
+        and:
+        0 * herokuAPI.addConfig(_, _)
+    }
+
 }

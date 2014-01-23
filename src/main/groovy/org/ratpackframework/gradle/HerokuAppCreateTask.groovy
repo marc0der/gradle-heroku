@@ -12,6 +12,7 @@ class HerokuAppCreateTask extends HerokuTask {
     @Override
     void execute(params){
         def name = params.appName
+        def buildpack = params.buildpack
 
         def app
         if(params.appName){
@@ -27,6 +28,10 @@ class HerokuAppCreateTask extends HerokuTask {
             logger.quiet "      ..."
             logger.quiet "  }"
         }
+
+        logger.quiet "Setting buildpack for new application $app.name to $buildpack"
+
+        if(buildpack) herokuAPI.addConfig(app.name, ["BUILDPACK_URL":buildpack])
 
         logger.quiet "\nApplication $app.name created!"
     }
