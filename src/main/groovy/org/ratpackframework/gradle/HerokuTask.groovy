@@ -16,7 +16,7 @@ abstract class HerokuTask extends DefaultTask {
     @TaskAction
     void start(){
         prepareAPI()
-        def appName = "${project.heroku.appName}"
+        def appName = project.heroku?.appName
         execute([appName:appName])
     }
 
