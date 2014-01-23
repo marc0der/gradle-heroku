@@ -16,7 +16,7 @@ In order to use the plugin, update your `build.gradle` file with the following c
     	apiKey = 'my-api-key'
 
     	//for a ratpack application
-    	buildpack = 'http://dl.bintray.com/vermeulen-mp/heroku-buildpack-ratpack/heroku-buildpack-ratpack.zip'
+        buildpack = 'http://dl.bintray.com/vermeulen-mp/buildpacks/heroku-buildpack-gradlew.zip'
     }
 
 
