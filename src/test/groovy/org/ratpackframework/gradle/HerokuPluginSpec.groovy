@@ -60,4 +60,9 @@ class HerokuPluginSpec extends Specification {
         project.tasks.findByName 'herokuAppInfo'
     }
 
+    void "should initialise the heroku app deploy task"() {
+        expect:
+        project.tasks.findByName 'herokuAppDeploy'
+    }
+
 }
