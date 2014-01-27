@@ -24,11 +24,6 @@ class HerokuAppCreateSpec extends Specification {
         task.herokuAPI = herokuAPI
     }
 
-    void "should add the app create task to the project"() {
-        expect:
-        task
-    }
-
     void "should declare a valid description"(){
         expect:
         task.description == 'Creates a new application on Heroku.'

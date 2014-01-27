@@ -21,11 +21,6 @@ class HerokuAppListSpec extends Specification {
         task.setHerokuAPI(herokuAPI)
     }
 
-    void "should add the app list task to the project"() {
-        expect:
-        task
-    }
-
     void "should declare a valid description"() {
         expect:
         task.description == "Lists all Apps available for the current user on Heroku."

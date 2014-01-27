@@ -40,14 +40,24 @@ class HerokuPluginSpec extends Specification {
         project.tasks.findByName 'herokuBuildpack'
     }
 
-    void "should initialise the heroku create app task"() {
+    void "should initialise the heroku app create task"() {
         expect:
         project.tasks.findByName 'herokuAppCreate'
     }
 
-    void "should initialise the heroku destroy app task"() {
+    void "should initialise the heroku app destroy task"() {
         expect:
         project.tasks.findByName 'herokuAppDestroy'
+    }
+
+    void "should initialise the heroku app list task"() {
+        expect:
+        project.tasks.findByName 'herokuAppList'
+    }
+
+    void "should initialise the heroku app info task"() {
+        expect:
+        project.tasks.findByName 'herokuAppInfo'
     }
 
 }

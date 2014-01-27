@@ -26,11 +26,6 @@ class HerokuAppInfoSpec extends Specification {
         task.herokuAPI = herokuAPI
     }
 
-    void "should add the app info task to the project"() {
-        expect:
-        task
-    }
-
     void "should declare a valid description"(){
         expect:
         task.description == 'Displays comprehensive information about the named application.'
