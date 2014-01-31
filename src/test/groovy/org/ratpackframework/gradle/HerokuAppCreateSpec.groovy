@@ -28,7 +28,6 @@ class HerokuAppCreateSpec extends Specification {
         task.git = git
         task.buildRemoteConfig = { storedConfigParam, remoteNameParam ->
             assert storedConfigParam == storedConfig
-            assert remoteNameParam == "heroku"
             remoteConfig
         }
 
@@ -110,8 +109,8 @@ class HerokuAppCreateSpec extends Specification {
     void "should add remote heroku url to git repository on app creation"() {
         given:
         def appName = "appName"
-        def app = Mock(App)
         def gitUrl = "git@heroku.com:frozen-balls-9999.git"
+        def app = Mock(App)
 
         and:
         def theURI
@@ -130,6 +129,26 @@ class HerokuAppCreateSpec extends Specification {
         and:
         theURI.toString() == gitUrl
         theStoredConfig == storedConfig
+    }
+
+    void "should set git remote name to heroku on app creation"() {
+        given:
+        def appName = "appName"
+        def app = Mock(App)
+        def theRemoteName
+        task.prepareStoredConfig = { a, b, c ->
+            theRemoteName = b
+        }
+
+        when:
+        task.execute([appName: appName, buildpack: null])
+
+        then:
+        herokuAPI.createApp(_) >> app
+        app.getGitUrl() >> ""
+
+        and:
+        theRemoteName == "heroku"
     }
 
 }
