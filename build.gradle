@@ -15,7 +15,7 @@ dependencies {
     compile 'org.eclipse.jgit:org.eclipse.jgit:3.2.0.201312181205-r'
 
     testCompile 'cglib:cglib-nodep:2.2.2'
-    testCompile 'org.spockframework:spock-core:0.6-groovy-1.8'
+    testCompile 'org.spockframework:spock-core:0.7-groovy-1.8'
 }
 
 group = 'org.gradle.api.plugins'
