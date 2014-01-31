@@ -3,19 +3,21 @@
 This Gradle plugin allows for the administration and deployment of your Heroku
 application from the comfort of your Gradle project.
 
-It allows you to install local buildpacks, provision, destroy or deploy an instance and view the application info.
+It allows you to create, destroy or deploy apps.
+It also allows you to view the application info or get a list of apps.
 
 In order to use the plugin, update your `build.gradle` file with the following config:
 
-	buildscript {
-		repositories {
-			...
-			mavenRepo name: 'Bintray Gradle Plugins', url: 'http://dl.bintray.com/vermeulen-mp/gradle-plugins'
-		}
-		dependencies {
-			classpath "org.gradle.api.plugins:gradle-heroku:0.9.2"
-		}
-	}
+    buildscript {
+        repositories {
+            ...
+            mavenCentral()
+            mavenRepo name: 'Bintray Gradle Plugins', url: 'http://dl.bintray.com/vermeulen-mp/gradle-plugins'
+        }
+        dependencies {
+            classpath "org.gradle.api.plugins:gradle-heroku:0.9.2"
+        }
+    }
 
 
     apply plugin: 'heroku'
@@ -23,17 +25,23 @@ In order to use the plugin, update your `build.gradle` file with the following c
     ...
 
     heroku {
-    	appName = 'some-unique-app-name'
+        appName = 'some-unique-app-name'
 
-		//get this from heroku
-    	apiKey = 'my-api-key' 
+        //get this from heroku
+        apiKey = 'my-api-key' 
 
-		//for standalone gradlew project
-		buildpack = 'https://github.com/marcoVermeulen/heroku-buildpack-gradlew.git'
+        //for standalone gradlew project
+        buildpack = 'https://github.com/marcoVermeulen/heroku-buildpack-gradlew.git'
     }
 
+Next, you will need to add a `Procfile` to the root of your project.
+It contains the following, including a crucial line that bootstraps your application, in this case a fat jar with java.
 
-After doing so, we can now invoke the following tasks:
+    ---
+    default_process_types:
+      web: java -jar -Dport=$PORT build/libs/my-fat.jar
+
+We can now invoke the following tasks:
 
     # provision the named app on heroku
     $ gradle herokuAppCreate
