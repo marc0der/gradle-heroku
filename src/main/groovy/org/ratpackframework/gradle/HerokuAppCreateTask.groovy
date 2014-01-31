@@ -1,9 +1,12 @@
 package org.ratpackframework.gradle
-
 import com.heroku.api.App
 import com.heroku.api.Heroku
+import org.eclipse.jgit.transport.RemoteConfig
+import org.eclipse.jgit.transport.URIish
 
 class HerokuAppCreateTask extends HerokuTask {
+
+    static final String REMOTE_NAME = "heroku"
 
     HerokuAppCreateTask(){
         super('Creates a new application on Heroku.')
@@ -14,10 +17,11 @@ class HerokuAppCreateTask extends HerokuTask {
         def name = params.appName
         def buildpack = params.buildpack
 
-        def app
+        App app
         if(params.appName){
             logger.quiet "\nUsing name $params.appName to create Cedar Stack."
             app = herokuAPI.createApp(new App().on(Heroku.Stack.Cedar).named(name));
+
         } else {
             logger.quiet "\nUsing Heroku suggested name to create Cedar Stack."
             app = herokuAPI.createApp(new App().on(Heroku.Stack.Cedar))
@@ -33,7 +37,27 @@ class HerokuAppCreateTask extends HerokuTask {
 
         if(buildpack) herokuAPI.addConfig(app.name, ["BUILDPACK_URL":buildpack])
 
+        def config = git.repository.config
+        def url = app.gitUrl
+        prepareStoredConfig(config, REMOTE_NAME, url)
+
         logger.quiet "\nApplication $app.name created!"
+    }
+
+    def prepareStoredConfig = { storedConfig, remoteName, remoteURI ->
+        prepareRemoteConfig(storedConfig, remoteName, remoteURI)
+        storedConfig.save()
+    }
+
+    def prepareRemoteConfig = { storedConfig, remoteName, remoteURI ->
+        def remoteConfig = buildRemoteConfig(storedConfig, remoteName)
+        def uri = new URIish(remoteURI)
+        remoteConfig.addURI(uri)
+        remoteConfig.update(storedConfig)
+    }
+
+    def buildRemoteConfig = { storedConfig, remoteName ->
+        new RemoteConfig(storedConfig, remoteName)
     }
 
 }

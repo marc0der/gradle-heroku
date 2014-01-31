@@ -1,5 +1,4 @@
 package org.ratpackframework.gradle
-
 import com.heroku.api.App
 import com.heroku.api.Heroku
 import com.heroku.api.HerokuAPI
@@ -15,6 +14,10 @@ class HerokuAppCreateSpec extends Specification {
     HerokuAppCreateTask task
 
     def herokuAPI = Mock(HerokuAPI)
+    def git = new Expando()
+    def repo = new Expando()
+    def storedConfig = new Expando()
+    def remoteConfig = new Expando()
 
     def setup(){
         project = ProjectBuilder.builder().build()
@@ -22,6 +25,15 @@ class HerokuAppCreateSpec extends Specification {
 
         task = project.tasks.findByName(CREATE_APP_TASK_NAME)
         task.herokuAPI = herokuAPI
+        task.git = git
+        task.buildRemoteConfig = { storedConfigParam, remoteNameParam ->
+            assert storedConfigParam == storedConfig
+            assert remoteNameParam == "heroku"
+            remoteConfig
+        }
+
+        git.repository = repo
+        repo.config  = storedConfig
     }
 
     void "should declare a valid description"(){
@@ -33,6 +45,7 @@ class HerokuAppCreateSpec extends Specification {
         given:
         def cedar = Heroku.Stack.Cedar
         def app = new App().on(cedar)
+        task.prepareStoredConfig = { a, b, c -> }
 
         when:
         task.execute([:])
@@ -48,6 +61,7 @@ class HerokuAppCreateSpec extends Specification {
         def appName = "fast-everglades-6675"
         def cedar = Heroku.Stack.Cedar
         def app = new App().named(appName).on(cedar)
+        task.prepareStoredConfig = { a, b, c -> }
 
         when:
         task.execute([appName: appName])
@@ -64,6 +78,7 @@ class HerokuAppCreateSpec extends Specification {
         def buildpack = "http://dl.bintray.com/vermeulen-mp/buildpacks/heroku-buildpack-gradlew.zip"
         def cedar = Heroku.Stack.Cedar
         def app = new App().named(appName).on(cedar)
+        task.prepareStoredConfig = { a, b, c -> }
 
         when:
         task.execute([appName: appName, buildpack: buildpack])
@@ -80,6 +95,7 @@ class HerokuAppCreateSpec extends Specification {
         def appName = "fast-everglades-6675"
         def cedar = Heroku.Stack.Cedar
         def app = new App().named(appName).on(cedar)
+        task.prepareStoredConfig = { a, b, c -> }
 
         when:
         task.execute([appName: appName, buildpack: null])
@@ -89,6 +105,31 @@ class HerokuAppCreateSpec extends Specification {
 
         and:
         0 * herokuAPI.addConfig(_, _)
+    }
+
+    void "should add remote heroku url to git repository on app creation"() {
+        given:
+        def appName = "appName"
+        def app = Mock(App)
+        def gitUrl = "git@heroku.com:frozen-balls-9999.git"
+
+        and:
+        def theURI
+        def theStoredConfig
+        storedConfig.save = {}
+        remoteConfig.addURI = { theURI = it }
+        remoteConfig.update = { theStoredConfig = it }
+
+        when:
+        task.execute([appName:appName, buildpack: null])
+
+        then:
+        herokuAPI.createApp(_) >> app
+        app.getGitUrl() >> gitUrl
+
+        and:
+        theURI.toString() == gitUrl
+        theStoredConfig == storedConfig
     }
 
 }
