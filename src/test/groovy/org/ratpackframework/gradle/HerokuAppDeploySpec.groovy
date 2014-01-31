@@ -4,6 +4,7 @@ import org.eclipse.jgit.transport.RefSpec
 import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
+import spock.lang.Ignore
 import spock.lang.Specification
 
 class HerokuAppDeploySpec extends Specification {
@@ -146,6 +147,7 @@ class HerokuAppDeploySpec extends Specification {
         called
     }
 
+    @Ignore
     void "should not deploy if build artifacts not present"() {
         given:
         def appName = "appName"
