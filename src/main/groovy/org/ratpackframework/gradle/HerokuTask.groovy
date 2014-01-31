@@ -6,6 +6,8 @@ import org.gradle.api.tasks.TaskAction
 
 abstract class HerokuTask extends DefaultTask {
 
+    static final String REMOTE_NAME = "heroku"
+
     HerokuAPI herokuAPI
     def git
 

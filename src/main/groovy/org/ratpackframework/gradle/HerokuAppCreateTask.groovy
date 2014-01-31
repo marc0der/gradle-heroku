@@ -6,8 +6,6 @@ import org.eclipse.jgit.transport.URIish
 
 class HerokuAppCreateTask extends HerokuTask {
 
-    static final String REMOTE_NAME = "heroku"
-
     HerokuAppCreateTask(){
         super('Creates a new application on Heroku.')
     }
