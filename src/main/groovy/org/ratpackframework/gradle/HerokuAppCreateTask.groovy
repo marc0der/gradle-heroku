@@ -6,6 +6,8 @@ import org.eclipse.jgit.transport.URIish
 
 class HerokuAppCreateTask extends HerokuTask {
 
+    final static String DEFAULT_BUILDPACK_URL = "https://github.com/marcoVermeulen/heroku-buildpack-gradlew.git"
+
     HerokuAppCreateTask(){
         super('Creates a new application on Heroku.')
     }
@@ -13,7 +15,6 @@ class HerokuAppCreateTask extends HerokuTask {
     @Override
     void execute(params){
         def name = params.appName
-        def buildpack = params.buildpack
 
         App app
         if(params.appName){
@@ -31,9 +32,9 @@ class HerokuAppCreateTask extends HerokuTask {
             logger.quiet "  }"
         }
 
-        logger.quiet "Setting buildpack for new application $app.name to $buildpack"
-
-        if(buildpack) herokuAPI.addConfig(app.name, ["BUILDPACK_URL":buildpack])
+        def buildpackURL = params.buildpack ?: DEFAULT_BUILDPACK_URL
+        logger.quiet "Setting buildpack for new application $app.name to $buildpackURL"
+        configureBuildpack(app.name, buildpackURL)
 
         def config = git.repository.config
         def url = app.gitUrl
@@ -56,6 +57,10 @@ class HerokuAppCreateTask extends HerokuTask {
 
     def buildRemoteConfig = { storedConfig, remoteName ->
         new RemoteConfig(storedConfig, remoteName)
+    }
+
+    def configureBuildpack(String appName, buildpackURL){
+        herokuAPI.addConfig(appName, ["BUILDPACK_URL":buildpackURL])
     }
 
 }

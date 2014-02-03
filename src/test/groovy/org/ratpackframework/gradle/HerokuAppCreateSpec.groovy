@@ -89,8 +89,9 @@ class HerokuAppCreateSpec extends Specification {
         1 * herokuAPI.addConfig(appName, { it.BUILDPACK_URL == buildpack })
     }
 
-    void "should not set buildpack on absence of configuration when creating a new app"() {
+    void "should set default buildpack on absence of configuration when creating a new app"() {
         given:
+        def defaultBuildpack = "https://github.com/marcoVermeulen/heroku-buildpack-gradlew.git"
         def appName = "fast-everglades-6675"
         def cedar = Heroku.Stack.Cedar
         def app = new App().named(appName).on(cedar)
@@ -103,7 +104,7 @@ class HerokuAppCreateSpec extends Specification {
         herokuAPI.createApp(_) >> app
 
         and:
-        0 * herokuAPI.addConfig(_, _)
+        1 * herokuAPI.addConfig(appName, { it.BUILDPACK_URL == defaultBuildpack })
     }
 
     void "should add remote heroku url to git repository on app creation"() {

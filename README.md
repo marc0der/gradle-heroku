@@ -28,10 +28,17 @@ In order to use the plugin, update your `build.gradle` file with the following c
         appName = 'some-unique-app-name'
 
         //get this from heroku
-        apiKey = 'my-api-key' 
+        apiKey = 'my-api-key'
+    }
 
-        //for standalone gradlew project
-        buildpack = 'https://github.com/marcoVermeulen/heroku-buildpack-gradlew.git'
+The default buildpack used on app creation will be the one found at: `https://github.com/marcoVermeulen/heroku-buildpack-gradlew.git`
+
+Overriding this default is as easy as adding an additional line to the heroku block:
+
+    heroku {
+        ...
+        buildpack = 'https://github.com/someaccount/heroku-buildpack-xxx.git'
+        ...
     }
 
 Next, you will need to add a `Procfile` to the root of your project.
