@@ -21,9 +21,7 @@ abstract class HerokuTask extends DefaultTask {
     void start(){
         prepareAPI()
         prepareRepo()
-        def appName = project.heroku?.appName
-        def buildpack = project.heroku?.buildpack
-        execute([appName:appName, buildpack:buildpack])
+        execute(project.heroku)
     }
 
     private void prepareRepo() {
