@@ -32,7 +32,7 @@ class HerokuAppCreateTask extends HerokuTask {
             logger.quiet "  }"
         }
 
-        def buildpackURL = params.buildpack == 'null' ? DEFAULT_BUILDPACK_URL : params.buildpack
+        def buildpackURL = !params.buildpack ? DEFAULT_BUILDPACK_URL : params.buildpack
         logger.quiet "Setting buildpack for new application $app.name to $buildpackURL"
         configureBuildpack(app.name, buildpackURL)
 

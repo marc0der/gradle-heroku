@@ -2,6 +2,7 @@ package org.ratpackframework.gradle
 import com.heroku.api.App
 import com.heroku.api.Heroku
 import com.heroku.api.HerokuAPI
+import org.codehaus.groovy.runtime.NullObject
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import spock.lang.Specification
@@ -98,7 +99,7 @@ class HerokuAppCreateSpec extends Specification {
         task.prepareStoredConfig = { a, b, c -> }
 
         when:
-        task.execute([appName: appName, buildpack: 'null'])
+        task.execute([appName: appName, buildpack: new NullObject()])
 
         then:
         herokuAPI.createApp(_) >> app
