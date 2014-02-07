@@ -20,7 +20,7 @@ dependencies {
 
 group = 'org.gradle.api.plugins'
 archivesBaseName = 'gradle-heroku-plugin'
-version = '0.9.3'
+version = '0.9.4'
 
 apply plugin: 'distribution'
 
