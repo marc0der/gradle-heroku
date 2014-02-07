@@ -98,7 +98,7 @@ class HerokuAppCreateSpec extends Specification {
         task.prepareStoredConfig = { a, b, c -> }
 
         when:
-        task.execute([appName: appName, buildpack: null])
+        task.execute([appName: appName, buildpack: 'null'])
 
         then:
         herokuAPI.createApp(_) >> app
