@@ -14,11 +14,6 @@ class HerokuAppDeployTask extends HerokuTask {
 
     @Override
     void execute(Object params) {
-        def jarFolder = DEPLOYABLE_ARTIFACT_FOLDER as File
-        if(!jarFolder.exists()){
-            throw new GradleException('No deployable artifacts found. First run: $ gradle build')
-        }
-
         def config = git.repository.config
         def remotes = config.getSubsections("remote")
         if(!remotes.contains(REMOTE_NAME)){
