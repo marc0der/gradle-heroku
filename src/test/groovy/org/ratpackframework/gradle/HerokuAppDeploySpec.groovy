@@ -1,10 +1,9 @@
 package org.ratpackframework.gradle
-import org.eclipse.jgit.lib.PersonIdent
+
 import org.eclipse.jgit.transport.RefSpec
 import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
-import spock.lang.Ignore
 import spock.lang.Specification
 
 class HerokuAppDeploySpec extends Specification {
@@ -51,69 +50,6 @@ class HerokuAppDeploySpec extends Specification {
         task.description == "Deploy the application to Heroku."
     }
 
-    void "should add build artifacts to git repo"() {
-        given:
-        def appName = "appName"
-
-
-        and: "the build folder is added"
-        def filePatternToAdd
-        addCommand.addFilepattern = {
-            filePatternToAdd = it
-            addCommand
-        }
-
-        and: "the add command is called"
-        def called = false
-        addCommand.call = {
-            called = true
-        }
-
-        when:
-        task.execute([appName: appName])
-
-        then:
-        called
-        filePatternToAdd == "build/libs"
-    }
-
-    void "should commit build artifacts to git repo"() {
-        given:
-        def appName = "appName"
-
-        and: "the commit message is set"
-        def messageSet = false
-        commitCommand.setMessage = {
-            assert it == "Commit generated artifact for heroku deployment."
-            messageSet = true
-            commitCommand
-        }
-
-        and: "the author is set"
-        def authorSet = false
-        commitCommand.setAuthor = { PersonIdent author ->
-            assert author instanceof PersonIdent
-            author.emailAddress == 'invalid@example.org'
-            author.name == 'Gradle Heroku plugin'
-            authorSet = true
-            commitCommand
-        }
-
-        and: "the commit command is called"
-        def called = false
-        commitCommand.call = {
-            called = true
-        }
-
-        when:
-        task.execute([appName: appName])
-
-        messageSet
-        authorSet
-        then:
-        called
-    }
-
     void "should push to git heroku remote"() {
         given:
         def appName = "appName"
@@ -145,19 +81,6 @@ class HerokuAppDeploySpec extends Specification {
         remote == 'heroku'
         refspec.toString() == 'master:master'
         called
-    }
-
-    @Ignore
-    void "should not deploy if build artifacts not present"() {
-        given:
-        def appName = "appName"
-        buildLibs.deleteDir()
-
-        when:
-        task.execute([appName: appName])
-
-        then:
-        thrown(GradleException)
     }
 
     void "should not deploy if git heroku remote not set"() {
