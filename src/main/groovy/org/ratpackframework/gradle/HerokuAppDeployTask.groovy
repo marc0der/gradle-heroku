@@ -5,7 +5,6 @@ import org.gradle.api.GradleException
 
 class HerokuAppDeployTask extends HerokuTask {
 
-    static final String DEPLOYABLE_ARTIFACT_FOLDER = "build/libs"
     static final String REF_SPEC = "master:master"
 
     HerokuAppDeployTask(){
