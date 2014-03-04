@@ -52,6 +52,10 @@ publishing {
         plugin(MavenPublication) {
             from components.java
 
+            artifact sourceJar {
+                classifier "sources"
+            }
+
             pom.withXml {
                 def root = asNode()
                 root.appendNode('name', 'Gradle Heroku plugin')
