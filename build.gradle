@@ -42,6 +42,11 @@ ext {
 
 apply plugin: 'maven-publish'
 
+task jarSources(type:Jar){
+    from sourceSets.main.allSource
+    classifier = 'source'
+}
+
 publishing {
     publications {
         plugin(MavenPublication) {
