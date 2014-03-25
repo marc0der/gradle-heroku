@@ -20,7 +20,7 @@ dependencies {
 
 group = 'com.wiredforcode'
 archivesBaseName = 'gradle-heroku-plugin'
-version = '0.9.9'
+version = '1.0.0'
 
 apply plugin: 'distribution'
 
@@ -43,7 +43,7 @@ ext {
 apply plugin: 'maven-publish'
 
 task sourceJar(type: Jar) {
-   from sourceSets.main.allJava
+   from sourceSets.main.allSource
    classifier = 'source'
 }
 
