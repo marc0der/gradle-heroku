@@ -1,4 +1,4 @@
-package org.ratpackframework.gradle
+package com.wiredforcode
 
 import org.eclipse.jgit.transport.RefSpec
 import org.gradle.api.GradleException
@@ -15,17 +15,17 @@ class HerokuAppDeployTask extends HerokuTask {
     void execute(Object params) {
         def config = git.repository.config
         def remotes = config.getSubsections("remote")
-        if(!remotes.contains(REMOTE_NAME)){
-            throw new GradleException("No remote $REMOTE_NAME found. First run: \$ gradle herokuAppCreate")
+        if(!remotes.contains(HerokuTask.REMOTE_NAME)){
+            throw new GradleException("No remote $HerokuTask.REMOTE_NAME found. First run: \$ gradle herokuAppCreate")
         }
 
-        logger.quiet "Pushing to remote repo: $REMOTE_NAME."
+        logger.quiet "Pushing to remote repo: $HerokuTask.REMOTE_NAME."
         logger.quiet "This could take a while... Really."
         def refSpec = new RefSpec(REF_SPEC)
         git.push()
-            .setRemote(REMOTE_NAME)
+            .setRemote(HerokuTask.REMOTE_NAME)
             .setRefSpecs(refSpec)
             .call()
-        logger.quiet "Finished pushing to: $REMOTE_NAME!"
+        logger.quiet "Finished pushing to: $HerokuTask.REMOTE_NAME!"
     }
 }

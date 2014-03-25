@@ -1,4 +1,4 @@
-package org.ratpackframework.gradle
+package com.wiredforcode
 
 class HerokuConfig {
     String appName

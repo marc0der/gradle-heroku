@@ -1,4 +1,4 @@
-package org.ratpackframework.gradle
+package com.wiredforcode
 
 import com.heroku.api.App
 

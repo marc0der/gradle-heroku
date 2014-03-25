@@ -18,9 +18,9 @@ dependencies {
     testCompile 'org.spockframework:spock-core:0.7-groovy-1.8'
 }
 
-group = 'org.gradle.api.plugins'
+group = 'com.wiredforcode'
 archivesBaseName = 'gradle-heroku-plugin'
-version = '0.9.8'
+version = '0.9.9'
 
 apply plugin: 'distribution'
 

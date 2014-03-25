@@ -1,4 +1,4 @@
-package org.ratpackframework.gradle
+package com.wiredforcode
 
 import org.eclipse.jgit.transport.RefSpec
 import org.gradle.api.GradleException

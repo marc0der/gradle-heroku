@@ -1,4 +1,5 @@
-package org.ratpackframework.gradle
+package com.wiredforcode
+
 import com.heroku.api.App
 import com.heroku.api.Heroku
 import org.eclipse.jgit.transport.RemoteConfig
@@ -38,7 +39,7 @@ class HerokuAppCreateTask extends HerokuTask {
 
         def config = git.repository.config
         def url = app.gitUrl
-        prepareStoredConfig(config, REMOTE_NAME, url)
+        prepareStoredConfig(config, HerokuTask.REMOTE_NAME, url)
 
         logger.quiet "\nApplication $app.name created!"
     }

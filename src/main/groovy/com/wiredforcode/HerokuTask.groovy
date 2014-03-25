@@ -1,4 +1,5 @@
-package org.ratpackframework.gradle
+package com.wiredforcode
+
 import com.heroku.api.HerokuAPI
 import org.eclipse.jgit.api.InitCommand
 import org.gradle.api.DefaultTask
