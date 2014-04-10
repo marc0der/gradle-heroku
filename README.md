@@ -15,7 +15,7 @@ In order to use the plugin, update your `build.gradle` file with the following c
             mavenRepo name: 'Bintray Gradle Plugins', url: 'http://dl.bintray.com/vermeulen-mp/gradle-plugins'
         }
         dependencies {
-            classpath "org.gradle.api.plugins:gradle-heroku:0.9.2"
+            classpath 'com.wiredforcode:gradle-heroku-plugin:1.0.0'
         }
     }
 
