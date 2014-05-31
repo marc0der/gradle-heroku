@@ -1,9 +1,13 @@
 package com.wiredforcode
 
+import org.eclipse.jgit.lib.SymbolicRef
 import org.eclipse.jgit.transport.RefSpec
 import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
+
+import spock.lang.IgnoreRest
+import spock.lang.See
 import spock.lang.Specification
 
 class HerokuAppDeploySpec extends Specification {
@@ -70,6 +74,10 @@ class HerokuAppDeploySpec extends Specification {
 
         and: "the push command is called"
         def called = false
+		def obj = new Object()
+		repository.resolve = {
+			obj // return object so that resolve is not null
+		}
         pushCommand.call = {
             called = true
         }
@@ -101,4 +109,72 @@ class HerokuAppDeploySpec extends Specification {
         subsectionsFound
         thrown(GradleException)
     }
+	
+	void "should fail deployment if no master branch exists locally"() {
+		given:
+		def appName = "appName"
+		
+		and: "repo resolve was called to check whether remote branch exists"
+		repository.resolve = {
+			null
+		}
+		
+		when:
+		task.execute([appName: appName])
+		
+		then:
+		thrown(GradleException)
+	}
+	
+	@See('https://github.com/marcoVermeulen/gradle-heroku/issues/2')
+	void "should deploy even if heroku remote has not been pushed to yet"() {
+		given:
+		def appName = "appName"
+		
+		and: "repo resolve was called to check whether remote branch exists"
+		def remoteName
+		def resolvedNull = false
+		def resolvedNotNull = false
+		def obj = new SymbolicRef("refname", null)
+		repository.resolve = {
+			if (it == "${HerokuTask.REMOTE_NAME}/${HerokuAppDeployTask.LOCAL_BRANCH}") {
+				resolvedNull = true
+				return null
+			} 
+			resolvedNotNull = true
+			return obj
+		}
+		
+		and: "push command did not set ref specs"
+		def refSpecsCalled = false
+		pushCommand.setRefSpecs = {
+			refSpecsCalled = true
+			pushCommand
+		}
+		
+		and: "push command added a ref"
+		def added = false
+		pushCommand.add = {
+			added = true
+			pushCommand
+		}
+		
+		and: "push command was called"
+		def called = false
+		pushCommand.call = {
+			called = true
+			pushCommand
+		}
+		
+		when:
+		task.execute([appName: appName])
+		
+		then:
+		notThrown(Throwable)
+		resolvedNull
+		resolvedNotNull
+		!refSpecsCalled
+		added
+		called
+	}
 }

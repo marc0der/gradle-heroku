@@ -5,3 +5,7 @@ build
 classes
 gradle-heroku-plugin.iml
 out
+/bin
+/.classpath
+/.project
+/.settings
